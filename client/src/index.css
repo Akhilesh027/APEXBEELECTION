@@ -1,0 +1,612 @@
+:root {
+  /* Government & Electoral Portal Theme */
+  --gov-navy: #0a1e3f;
+  --gov-navy-light: #162d59;
+  --gov-blue: #1a56db;
+  --gov-blue-hover: #1e429f;
+  
+  --gov-saffron: #ff9933;
+  --gov-saffron-light: #fff7ed;
+  --gov-green: #138808;
+  --gov-green-light: #f0fdf4;
+  
+  --bg-main: #f4f6fa;
+  --bg-card: #ffffff;
+  --border: #e2e8f0;
+  --border-gov: #cbd5e1;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.telugu-text {
+  font-family: 'Noto Sans Telugu', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tricolor Top Accent */
+.gov-top-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+  width: 100%;
+}
+
+.gov-sub-bar {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  color: #475569;
+  padding: 6px 24px;
+}
+
+.gov-sub-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Common Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* Public Hero Search Card */
+.hero-search-card {
+  background: linear-gradient(135deg, #0a1e3f 0%, #162d59 100%);
+  border-radius: var(--radius-lg);
+  color: white;
+  padding: 32px 36px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 25px -5px rgba(10, 30, 63, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-search-card::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Official Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-super {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.badge-admin {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.badge-viewer {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-active {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.badge-suspended {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.badge-ip {
+  background: #f1f5f9;
+  color: #334155;
+  font-family: monospace;
+  font-size: 11.5px;
+  border: 1px solid #cbd5e1;
+}
+
+/* Official Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--gov-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--gov-blue-hover);
+}
+
+.btn-saffron {
+  background: #ea580c;
+  color: white;
+}
+
+.btn-saffron:hover {
+  background: #c2410c;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text-main);
+  border-color: var(--border-gov);
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+
+/* Form Controls */
+.form-input, .form-select {
+  width: 100%;
+  padding: 9px 13px;
+  border: 1px solid var(--border-gov);
+  border-radius: var(--radius-sm);
+  background: white;
+  font-size: 13.5px;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--gov-blue);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+}
+
+.form-grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* Table Style */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+tr:hover td {
+  background: #fbfcfe;
+}
+
+/* Electoral Roll Slip (Official Format) */
+.electoral-slip-card {
+  width: 100%;
+  max-width: 440px;
+  border: 2px solid #000;
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  font-family: 'Noto Sans Telugu', 'Plus Jakarta Sans', serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  margin: 10px auto;
+  page-break-inside: avoid;
+}
+
+.slip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slip-box-num {
+  border: 1.5px solid #000;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.slip-content-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.slip-details {
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.slip-field-row {
+  display: flex;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.slip-label {
+  width: 110px;
+  font-weight: 600;
+}
+
+.slip-value {
+  flex: 1;
+  font-weight: 700;
+}
+
+.slip-photo-box {
+  width: 105px;
+  height: 130px;
+  border: 1.5px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.slip-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slip-footer {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #000;
+  font-size: 13.5px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 30, 63, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 12px;
+}
+
+.modal-body {
+  background: white;
+  width: 100%;
+  max-width: 720px;
+  max-height: 94vh;
+  overflow-y: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-top: 4px solid var(--gov-blue);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Navigation Tabs */
+.gov-tabs-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.gov-tabs-bar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.gov-tabs-bar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Touch-friendly Mobile Cards */
+.mobile-voter-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mobile-voter-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsive Dashboard Stats Grid */
+.gov-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+/* Mobile & Tablet Responsive Media Queries */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 12px 10px 40px;
+  }
+
+  /* Prevent iOS automatic zoom on form input focus */
+  .form-input, .form-select, input[type="text"], input[type="password"], input[type="number"], select, textarea {
+    font-size: 16px !important;
+  }
+
+  .btn {
+    min-height: 38px;
+  }
+
+  .hero-search-card {
+    padding: 18px 14px;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+  }
+
+  .hero-search-card h1 {
+    font-size: 19px !important;
+  }
+
+  .gov-sub-bar {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .gov-sub-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .gov-header-title {
+    font-size: 15px !important;
+  }
+
+  .gov-header-sub {
+    font-size: 11px !important;
+  }
+
+  .modal-overlay {
+    padding: 8px;
+    align-items: flex-end; /* bottom-sheet feel on mobile */
+  }
+
+  .modal-body {
+    padding: 16px 12px;
+    max-height: 94vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .gov-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .form-grid-responsive > div {
+    grid-column: span 1 !important;
+  }
+
+  .hero-search-input-group {
+    flex-direction: column !important;
+    gap: 8px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .hero-search-input-group > div {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .hero-search-input-group > button {
+    width: 100% !important;
+    padding: 12px !important;
+    min-height: 44px;
+  }
+
+  .electoral-slip-card {
+    padding: 8px;
+    margin: 4px auto;
+  }
+
+  .slip-photo-box {
+    width: 75px;
+    height: 95px;
+  }
+
+  .slip-details {
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .slip-label {
+    width: 80px;
+  }
+
+  .slip-box-num {
+    padding: 1px 5px;
+    font-size: 12px;
+  }
+
+  .slip-header {
+    font-size: 11.5px;
+  }
+
+  .slip-footer {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gov-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .gov-sub-inner {
+    font-size: 10px;
+  }
+
+  .modal-overlay {
+    padding: 0;
+  }
+
+  .modal-body {
+    max-height: 96vh;
+    border-radius: 14px 14px 0 0;
+    padding: 14px 10px;
+  }
+}
+
+/* Print Rules */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-area, .printable-area * {
+    visibility: visible;
+  }
+  .printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
