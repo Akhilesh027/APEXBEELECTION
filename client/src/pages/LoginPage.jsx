@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, AlertCircle, ArrowRight, Building2, PhoneCall } from 'lucide-react';
+import { Lock, Mail, AlertCircle, ArrowRight, Building2 } from 'lucide-react';
 
 export const LoginPage = () => {
   const { login } = useAuth();
@@ -31,18 +31,17 @@ export const LoginPage = () => {
       flexDirection: 'column',
       background: '#f1f5f9'
     }}>
-      {/* Top Tricolor Accent */}
+      {/* Top Accent Bar */}
       <div className="gov-top-bar" />
 
-      {/* Official Government Top Header */}
+      {/* Portal Top Header */}
       <div className="gov-sub-bar">
         <div className="gov-sub-inner">
           <div style={{ fontWeight: 700, color: '#0f172a' }}>
-            Government of India • Election Commission of India (భారత ప్రభుత్వం • ఎన్నికల సంఘం)
+            Ward Voter Search Portal • వార్డు ఓటర్ల శోధన పోర్టల్
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#15803d', fontWeight: 700 }}>
-            <PhoneCall size={13} />
-            <span>Toll-Free Voter Helpline: 1950 (ఓటరు హెల్ప్‌లైన్)</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#1e40af', fontWeight: 600 }}>
+            <span>Secure Portal Access</span>
           </div>
         </div>
       </div>
@@ -65,7 +64,7 @@ export const LoginPage = () => {
           borderTop: '4px solid #1a56db',
           padding: '24px 18px'
         }}>
-          {/* Official Emblem & Title */}
+          {/* Emblem & Title */}
           <div style={{ textAlign: 'center', marginBottom: '24px' }}>
             <div style={{
               width: '54px',
@@ -75,7 +74,7 @@ export const LoginPage = () => {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ff9933',
+              color: '#38bdf8',
               marginBottom: '12px',
               boxShadow: '0 2px 8px rgba(10, 30, 63, 0.2)'
             }}>
@@ -83,13 +82,13 @@ export const LoginPage = () => {
             </div>
 
             <h1 style={{ fontSize: '20px', fontWeight: 800, color: '#0a1e3f', letterSpacing: '-0.02em', marginTop: '2px' }}>
-              National Electoral Portal Login
+              Ward Voter Search Portal Login
             </h1>
-            <div className="telugu-text" style={{ fontSize: '13px', fontWeight: 600, color: '#ea580c', marginTop: '2px' }}>
-              రాష్ట్ర ఎన్నికల సంఘం • అధికారిక లాగిన్
+            <div className="telugu-text" style={{ fontSize: '13px', fontWeight: 600, color: '#2563eb', marginTop: '2px' }}>
+              వార్డు ఓటర్ల శోధన పోర్టల్ • లాగిన్
             </div>
             <p style={{ fontSize: '12.5px', color: '#64748b', marginTop: '3px' }}>
-              Official Electoral Services & Administration Gateway
+              Ward Voter Directory & Search Access
             </p>
           </div>
 
@@ -115,14 +114,14 @@ export const LoginPage = () => {
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                Official Email ID (అధికారిక ఈమెయిల్) *
+                Email Address (ఈమెయిల్) *
               </label>
               <div style={{ position: 'relative' }}>
                 <Mail size={16} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '11px' }} />
                 <input
                   type="email"
                   required
-                  placeholder="officer@election.gov"
+                  placeholder="admin@election.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-input"
@@ -133,7 +132,7 @@ export const LoginPage = () => {
 
             <div style={{ marginBottom: '22px' }}>
               <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                Password (రహస్య సంకేత పదం) *
+                Password (పాస్‌వర్డ్) *
               </label>
               <div style={{ position: 'relative' }}>
                 <Lock size={16} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '11px' }} />
@@ -155,17 +154,17 @@ export const LoginPage = () => {
               className="btn btn-primary"
               style={{ width: '100%', padding: '11px', fontSize: '14px', fontWeight: 700 }}
             >
-              {loading ? 'Verifying Credentials...' : 'Sign In to Portal / ప్రవేశించండి'}
+              {loading ? 'Verifying Credentials...' : 'Sign In / లాగిన్ అవ్వండి'}
               <ArrowRight size={15} />
             </button>
           </form>
 
-          {/* Security Notice */}
+          {/* Notice */}
           <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #e2e8f0' }}>
             <div style={{ fontSize: '11.5px', color: '#64748b', textAlign: 'center', lineHeight: '1.5' }}>
-              🔒 <strong>Official Security Notice:</strong> All login attempts, sessions, and client IP addresses are monitored and audited under election security protocol.
+              🔒 <strong>Secure Access:</strong> Sign in with your assigned credentials to manage voter records.
               <div className="telugu-text" style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
-                అధికారిక రక్షణ సూచన: ఈ వ్యవస్థ ద్వారా జరిగే ప్రతి చర్య మరియు IP చిరునామా చట్టబద్ధంగా రికార్డు చేయబడుతుంది.
+                ఓటర్ల వివరాలను నిర్వహించడానికి మీ ఖాతాతో లాగిన్ అవ్వండి.
               </div>
             </div>
           </div>

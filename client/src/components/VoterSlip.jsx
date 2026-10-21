@@ -1,7 +1,8 @@
 import React from 'react';
 import { Printer, X } from 'lucide-react';
+import { maskVoterId } from '../utils/translator';
 
-export const VoterSlip = ({ voter, onClose }) => {
+export const VoterSlip = ({ voter, onClose, maskId = false }) => {
   if (!voter) return null;
 
   const handlePrint = () => {
@@ -32,13 +33,13 @@ export const VoterSlip = ({ voter, onClose }) => {
       <div className="modal-body" style={{ maxWidth: '580px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
           <div>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0a1e3f' }}>Official Voter Information Slip</h3>
-            <p style={{ fontSize: '12px', color: '#64748b' }}>Electoral Roll Verification Slip • ఓటరు సమాచార పత్రం</p>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0a1e3f' }}>Voter Information Slip</h3>
+            <p style={{ fontSize: '12px', color: '#64748b' }}>Voter Details • ఓటరు సమాచార పత్రం</p>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button onClick={handlePrint} className="btn btn-primary btn-sm">
               <Printer size={15} />
-              Print Official Slip / ప్రింట్
+              Print Slip / ప్రింట్
             </button>
             <button onClick={onClose} className="btn btn-secondary btn-sm" style={{ padding: '6px' }}>
               <X size={18} />
@@ -52,13 +53,13 @@ export const VoterSlip = ({ voter, onClose }) => {
             {/* Header with Serial and Assembly Numbers */}
             <div className="slip-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span>Ward Serial No. / వార్డు నం:</span>
-                <span className="slip-box-num">{voter.wardVoterSerialNo || '1037'}</span>
+                <span>Ward Serial / వరుస నం:</span>
+                <span className="slip-box-num">{voter.wardVoterSerialNo || '1'}</span>
               </div>
-              <div>
-                <span>Assembly Code / అ.ఓ.జా.వ.నం: </span>
-                <span style={{ fontSize: '13.5px', fontWeight: 'bold' }}>
-                  {voter.assemblyPartSerialCode || `${voter.electionLocation?.constituencyNo || 116} - ${voter.electionLocation?.partOrBoothNo || 34} - ${voter.electionLocation?.boothSerialNo || 452}`}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>Ward / వార్డు సంఖ్య: </span>
+                <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#1a56db' }}>
+                  {voter.electionLocation?.wardNo || '24'}
                 </span>
               </div>
             </div>
@@ -106,13 +107,10 @@ export const VoterSlip = ({ voter, onClose }) => {
                   <span className="slip-value"><strong>{voter.houseNumber}</strong></span>
                 </div>
 
-                {/* Polling Station Name */}
-                {voter.electionLocation?.pollingStationName && (
-                  <div className="slip-field-row" style={{ marginTop: '4px', fontSize: '11px', color: '#222' }}>
-                    <span style={{ fontWeight: 600, width: '130px' }}>Polling Station / కేంద్రం:</span>
-                    <span style={{ flex: 1 }}>{voter.electionLocation.pollingStationName}</span>
-                  </div>
-                )}
+                <div className="slip-field-row" style={{ marginTop: '4px', fontSize: '11px', color: '#222' }}>
+                  <span style={{ fontWeight: 600, width: '130px' }}>Ward / వార్డు:</span>
+                  <span style={{ flex: 1, fontWeight: 700 }}>వార్డు {voter.electionLocation?.wardNo || '24'}</span>
+                </div>
               </div>
 
               {/* Photo Box */}
@@ -130,13 +128,15 @@ export const VoterSlip = ({ voter, onClose }) => {
             {/* Footer with EPIC / Voter ID Card Number */}
             <div className="slip-footer">
               <span>EPIC / Voter ID (ఓటరు ఐడి కార్డు నెం.) :</span>
-              <span style={{ letterSpacing: '0.05em', fontFamily: 'monospace' }}>{voter.voterIdNumber}</span>
+              <span style={{ letterSpacing: '0.05em', fontFamily: 'monospace' }}>
+                {maskId ? maskVoterId(voter.voterIdNumber) : voter.voterIdNumber}
+              </span>
             </div>
           </div>
         </div>
 
         <div style={{ marginTop: '16px', background: '#f8fafc', padding: '12px', borderRadius: '8px', fontSize: '12px', color: '#64748b' }}>
-          💡 <strong>Official Note:</strong> This voter slip displays official details in English by default with verified Telugu translation in compliance with State Electoral Commission regulations.
+          💡 <strong>Note:</strong> Voter details displayed with Telugu translation for convenient reference.
         </div>
       </div>
     </div>

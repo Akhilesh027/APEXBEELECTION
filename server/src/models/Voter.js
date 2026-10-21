@@ -98,7 +98,7 @@ const voterSchema = new mongoose.Schema(
       partOrBoothNo: { type: String, default: '34', index: true },
       boothSerialNo: { type: String, default: '452' },
       pollingStationName: { type: String, default: 'M.P.P. Elementary School, Room No. 2' },
-      wardNo: { type: String, default: 'Ward 5', index: true },
+      wardNo: { type: String, default: '24', index: true },
     },
     // Voter Status
     status: {

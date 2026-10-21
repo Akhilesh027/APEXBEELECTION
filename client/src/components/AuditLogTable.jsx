@@ -63,7 +63,7 @@ export const AuditLogTable = ({ logs, loading }) => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ fontSize: '13px', color: '#64748b' }}>
-          చట్టబద్ధ ఆడిట్ రికార్డులు: <strong>{logs.length}</strong>
+          సిస్టమ్ ఆడిట్ రికార్డులు: <strong>{logs.length}</strong>
         </div>
 
         <div style={{ display: 'flex', gap: '4px', background: '#e2e8f0', padding: '3px', borderRadius: '6px' }}>

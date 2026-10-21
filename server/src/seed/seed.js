@@ -29,8 +29,8 @@ const seedOnlySuperAdmin = async () => {
 
     // 2. Create ONLY the Super Admin
     const superAdmin = await User.create({
-      fullName: 'Chief Election Officer (Super Admin)',
-      email: 'superadmin@election.gov',
+      fullName: 'Super Admin',
+      email: 'superadmin@election.com',
       password: 'Password@123',
       role: 'SUPER_ADMIN',
       status: 'ACTIVE',

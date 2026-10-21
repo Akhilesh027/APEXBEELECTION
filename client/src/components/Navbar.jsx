@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { Shield, User, LogOut, Globe, PhoneCall, Building2, Languages } from 'lucide-react';
+import { Shield, User, LogOut, Globe, Building2, Languages } from 'lucide-react';
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
@@ -11,20 +11,20 @@ export const Navbar = () => {
     switch (role) {
       case 'SUPER_ADMIN':
         return (
-          <span className="badge badge-super" title="Chief Electoral Officer">
-            🏛️ Chief Electoral Officer (CEO) • ప్రధాన అధికారి
+          <span className="badge badge-super" title="Super Admin">
+            ⚡ Super Admin • ముఖ్య నిర్వాహకుడు
           </span>
         );
       case 'ADMIN':
         return (
-          <span className="badge badge-admin" title="Electoral Registration Officer">
-            📋 Electoral Registration Officer (ERO) • నమోదు అధికారి
+          <span className="badge badge-admin" title="Admin">
+            📋 Admin • అడ్మిన్ నిర్వాహకుడు
           </span>
         );
       case 'VIEWER':
         return (
-          <span className="badge badge-viewer" title="Public Electoral Roll Viewer">
-            🔍 Public Electoral Roll Viewer • పౌర పరిశీలన
+          <span className="badge badge-viewer" title="Viewer">
+            🔍 Viewer • పరిశీలకుడు
           </span>
         );
       default:
@@ -34,19 +34,19 @@ export const Navbar = () => {
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 50, background: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-      {/* Top Tricolor Accent */}
+      {/* Top Accent Bar */}
       <div className="gov-top-bar" />
 
-      {/* Official Government Sub-header (English Default First, Telugu Following) */}
+      {/* Sub-header */}
       <div className="gov-sub-bar">
         <div className="gov-sub-inner">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span style={{ fontWeight: 700, color: '#0f172a' }}>
-              Government of India • State Election Commission
+              Ward Voter Search Portal
             </span>
             <span style={{ color: '#cbd5e1' }}>|</span>
             <span className="telugu-text" style={{ color: '#64748b', fontSize: '11px' }}>
-              భారత ప్రభుత్వం • రాష్ట్ర ఎన్నికల సంఘం
+              వార్డు ఓటర్ల శోధన పోర్టల్
             </span>
           </div>
 
@@ -114,11 +114,6 @@ export const Navbar = () => {
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#15803d', fontWeight: 700 }}>
-              <PhoneCall size={12} />
-              <span>Voter Helpline: 1950</span>
-            </div>
-
             {user?.lastLoginIp && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#475569', fontFamily: 'monospace', fontSize: '11px' }}>
                 <Globe size={11} color="#2563eb" />
@@ -129,7 +124,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Main Official Header */}
+      {/* Main Header */}
       <div style={{ borderBottom: '1px solid #e2e8f0', background: '#ffffff' }}>
         <div style={{
           maxWidth: '1360px',
@@ -141,7 +136,7 @@ export const Navbar = () => {
           flexWrap: 'wrap',
           gap: '10px'
         }}>
-          {/* Emblem & Title (English First, Telugu Secondary) */}
+          {/* Emblem & Title */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: '1 1 auto' }}>
             <div style={{
               width: '40px',
@@ -155,15 +150,15 @@ export const Navbar = () => {
               boxShadow: '0 2px 6px rgba(10, 30, 63, 0.25)',
               flexShrink: 0
             }}>
-              <Building2 size={22} color="#ff9933" />
+              <Building2 size={22} color="#38bdf8" />
             </div>
 
             <div style={{ minWidth: 0 }}>
               <div className="gov-header-title" style={{ fontSize: '16.5px', fontWeight: 800, color: '#0a1e3f', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                National Electoral Services & Roll Portal
+                Ward Voter Search Portal
               </div>
-              <div className="telugu-text gov-header-sub" style={{ fontSize: '12px', fontWeight: 600, color: '#ea580c', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                Election Commission of India • భారత ఎన్నికల సంఘం
+              <div className="telugu-text gov-header-sub" style={{ fontSize: '12px', fontWeight: 600, color: '#2563eb', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                వార్డు ఓటర్ల శోధన పోర్టల్
               </div>
             </div>
           </div>

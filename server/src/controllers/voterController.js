@@ -166,7 +166,10 @@ export const createVoter = async (req, res) => {
       houseNumber: houseNumber.trim(),
       photoUrl: photoUrl || '',
       contactNumber: contactNumber?.trim() || '',
-      electionLocation: electionLocation || {},
+      electionLocation: {
+        ...(electionLocation || {}),
+        wardNo: electionLocation?.wardNo || '24',
+      },
       status: status || 'ACTIVE',
       createdBy: req.user._id,
     });
@@ -346,9 +349,13 @@ export const bulkImportVoters = async (req, res) => {
           continue;
         }
 
+        const loc = v.electionLocation || {};
+        if (!loc.wardNo) loc.wardNo = '24';
+
         await Voter.create({
           ...v,
           voterIdNumber: id,
+          electionLocation: loc,
           createdBy: req.user._id,
         });
         insertedCount++;

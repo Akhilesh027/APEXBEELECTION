@@ -13,7 +13,8 @@ import {
   Home,
   Building,
   CheckCircle2,
-  FileText
+  FileText,
+  User
 } from 'lucide-react';
 
 export const AdminView = () => {
@@ -21,7 +22,7 @@ export const AdminView = () => {
   const [voters, setVoters] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
-  const [selectedBooth, setSelectedBooth] = useState('ALL');
+  const [selectedWard, setSelectedWard] = useState('ALL');
   const [selectedGender, setSelectedGender] = useState('ALL');
   const [displayMode, setDisplayMode] = useState(() => {
     return typeof window !== 'undefined' && window.innerWidth <= 768 ? 'cards' : 'table';
@@ -40,7 +41,7 @@ export const AdminView = () => {
     try {
       const query = new URLSearchParams();
       if (search) query.append('search', search);
-      if (selectedBooth !== 'ALL') query.append('partOrBoothNo', selectedBooth);
+      if (selectedWard !== 'ALL') query.append('wardNo', selectedWard);
       if (selectedGender !== 'ALL') query.append('gender', selectedGender);
       query.append('limit', '50');
 
@@ -103,13 +104,13 @@ export const AdminView = () => {
       }}>
         <div>
           <div style={{ fontSize: '13px', fontWeight: 700, color: '#1a56db' }}>
-            Electoral Registration Officer Workspace (ERO / BLO Portal)
+            Administrator Workspace
           </div>
           <div style={{ fontSize: '18px', fontWeight: 800, color: '#0a1e3f', marginTop: '2px' }}>
-            Electoral Roll Revision & Voter Enrollment Section
+            Voter Directory Management & Enrollment Section
           </div>
           <div className="telugu-text" style={{ fontSize: '12.5px', color: '#64748b', marginTop: '3px' }}>
-            ఎన్నికల నమోదు అధికారి విభాగం • నియోజకవర్గ పరిధిలోని ఓటర్ల వివరాల నమోదు మరియు సవరణల పోర్టల్.
+            ఓటర్ల వివరాల నమోదు మరియు సవరణల పోర్టల్.
           </div>
         </div>
 
@@ -118,7 +119,7 @@ export const AdminView = () => {
             <FileSpreadsheet size={14} /> Batch Voter Upload (బల్క్ నమోదు)
           </button>
           <button onClick={() => setShowAddModal(true)} className="btn btn-primary btn-sm" style={{ fontWeight: 700 }}>
-            <UserPlus size={15} /> + Add Voter / Form 6 (కొత్త ఓటరు నమోదు)
+            <UserPlus size={15} /> + Add Voter (కొత్త ఓటరు నమోదు)
           </button>
         </div>
       </div>
@@ -129,7 +130,7 @@ export const AdminView = () => {
           {/* Quick Search */}
           <div>
             <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-              SEARCH ELECTORAL ROLL (ఓటరు శోధన)
+              SEARCH VOTER LIST (ఓటరు శోధన)
             </label>
             <div style={{ position: 'relative' }}>
               <Search size={15} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
@@ -145,15 +146,19 @@ export const AdminView = () => {
             </div>
           </div>
 
-          {/* Booth Filter */}
+          {/* Ward Filter */}
           <div>
             <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>
-              POLLING BOOTH (పోలింగ్ కేంద్రం)
+              WARD (వార్డు)
             </label>
-            <select value={selectedBooth} onChange={(e) => setSelectedBooth(e.target.value)} className="form-select">
-              <option value="ALL">All Polling Booths (అన్ని పోలింగ్ కేంద్రాలు)</option>
-              <option value="34">Booth 34 (M.P.P. Elementary School - బూత్ 34)</option>
-              <option value="35">Booth 35 (Z.P. High School - బూత్ 35)</option>
+            <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)} className="form-select">
+              <option value="ALL">All Wards (అన్ని వార్డులు)</option>
+              <option value="24">Ward 24 (వార్డు 24)</option>
+              <option value="1">Ward 1 (వార్డు 1)</option>
+              <option value="2">Ward 2 (వార్డు 2)</option>
+              <option value="3">Ward 3 (వార్డు 3)</option>
+              <option value="4">Ward 4 (వార్డు 4)</option>
+              <option value="5">Ward 5 (వార్డు 5)</option>
             </select>
           </div>
 
@@ -235,7 +240,7 @@ export const AdminView = () => {
                 <th>RELATIVE NAME (సంబంధీకుడు)</th>
                 <th>AGE & GENDER (వయస్సు / లింగము)</th>
                 <th>HOUSE NO. (ఇంటి సంఖ్య)</th>
-                <th>WARD / BOOTH (వార్డు / బూత్)</th>
+                <th>WARD (వార్డు)</th>
                 <th>STATUS (స్థితి)</th>
                 <th>ACTIONS (చర్యలు)</th>
               </tr>
@@ -244,7 +249,7 @@ export const AdminView = () => {
               {loading ? (
                 <tr>
                   <td colSpan="8" style={{ textAlign: 'center', padding: '32px', color: '#64748b' }}>
-                    ఓటరు జాబితా పరిశీలిస్తోంది (Loading Electoral Roll)...
+                    ఓటరు జాబితా పరిశీలిస్తోంది (Loading Voter List)...
                   </td>
                 </tr>
               ) : voters.length === 0 ? (
@@ -281,9 +286,53 @@ export const AdminView = () => {
                     <td>
                       <strong>{v.houseNumber}</strong>
                     </td>
+                    {/* Photo & Ward */}
                     <td style={{ fontSize: '12px' }}>
-                      <div>వార్డు: {v.wardVoterSerialNo}</div>
-                      <div style={{ color: '#64748b', fontSize: '11px' }}>{v.assemblyPartSerialCode}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {v.photoUrl ? (
+                          <img
+                            src={v.photoUrl}
+                            alt={v.fullName}
+                            style={{
+                              width: '40px',
+                              height: '48px',
+                              objectFit: 'cover',
+                              borderRadius: '6px',
+                              border: '1.5px solid #cbd5e1',
+                              backgroundColor: '#f1f5f9',
+                              flexShrink: 0
+                            }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          style={{
+                            width: '40px',
+                            height: '48px',
+                            borderRadius: '6px',
+                            background: '#e2e8f0',
+                            display: v.photoUrl ? 'none' : 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#64748b',
+                            fontSize: '10px',
+                            border: '1px solid #cbd5e1',
+                            flexShrink: 0
+                          }}
+                        >
+                          <User size={16} color="#94a3b8" />
+                          <span style={{ fontSize: '9px', marginTop: '1px' }}>ఫోటో</span>
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 800, color: '#0a1e3f', fontSize: '13px' }}>
+                            వార్డు {v.electionLocation?.wardNo || '24'}
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
                       <span className={`badge ${v.status === 'ACTIVE' ? 'badge-active' : 'badge-suspended'}`}>
@@ -371,7 +420,7 @@ export const AdminView = () => {
                 </div>
 
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
-                  ఇంటి సంఖ్య: <strong>{v.houseNumber}</strong> • వార్డు: {v.wardVoterSerialNo} ({v.assemblyPartSerialCode})
+                  ఇంటి సంఖ్య: <strong>{v.houseNumber}</strong> • వార్డు: {v.electionLocation?.wardNo || '24'}
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px' }}>

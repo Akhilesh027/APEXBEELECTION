@@ -22,9 +22,8 @@ export const VoterFormModal = ({ voter, onClose, onSuccess, token }) => {
     houseNumber: voter?.houseNumber || '',
     photoUrl: voter?.photoUrl || '',
     contactNumber: voter?.contactNumber || '',
-    status: voter?.status || 'ACTIVE',
-    pollingStationName: voter?.electionLocation?.pollingStationName || 'M.P.P. Elementary School',
-    wardNo: voter?.electionLocation?.wardNo || 'Ward 5',
+    pollingStationName: voter?.electionLocation?.pollingStationName || '',
+    wardNo: voter?.electionLocation?.wardNo || '24',
     partOrBoothNo: voter?.electionLocation?.partOrBoothNo || '34',
     constituencyNo: voter?.electionLocation?.constituencyNo || '116',
   });
@@ -252,14 +251,14 @@ export const VoterFormModal = ({ voter, onClose, onSuccess, token }) => {
       <div className="modal-body">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
           <div>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#ff9933' }}>
-              Election Commission of India • భారత ఎన్నికల సంఘం
+            <div style={{ fontSize: '12px', fontWeight: 700, color: '#1a56db' }}>
+              Voter Management Portal • ఓటర్ల నమోదు విభాగం
             </div>
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0a1e3f', marginTop: '2px' }}>
-              {isEditing ? 'Form 8: Correction of Particulars (ఫారం 8: వివరాల సవరణ)' : 'Form 6: New Voter Enrollment (ఫారం 6: కొత్త ఓటరు నమోదు)'}
+              {isEditing ? 'Edit Voter Details (వివరాల సవరణ)' : 'New Voter Enrollment (కొత్త ఓటరు నమోదు)'}
             </h3>
             <p style={{ fontSize: '12.5px', color: '#64748b', marginTop: '2px' }}>
-              Official Electoral Roll Entry Portal (English default with automated Telugu translation)
+              Voter Roll Entry Portal (English default with automated Telugu translation)
             </p>
           </div>
           <button onClick={onClose} className="btn btn-secondary btn-sm" style={{ padding: '6px' }}>
@@ -332,33 +331,33 @@ export const VoterFormModal = ({ voter, onClose, onSuccess, token }) => {
             />
           </div>
 
-          {/* Ward Serial Number */}
+          {/* Ward Number */}
           <div>
             <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '5px' }}>
-              Ward Voter Serial No. * (వార్డు ఓ.జా.వ.నం)
+              Ward No. * (వార్డు సంఖ్య)
             </label>
             <input
               type="text"
-              name="wardVoterSerialNo"
+              name="wardNo"
               required
-              placeholder="e.g. 1037"
-              value={formData.wardVoterSerialNo}
+              placeholder="e.g. 24"
+              value={formData.wardNo}
               onChange={handleChange}
               className="form-input"
             />
           </div>
 
-          {/* Assembly Part Code */}
-          <div style={{ gridColumn: 'span 2' }}>
+          {/* Ward Serial Number */}
+          <div>
             <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '5px' }}>
-              Assembly Part Serial Code * (అ.ఓ.జా.వ.నం)
+              Ward Serial No. * (వరుస సంఖ్య)
             </label>
             <input
               type="text"
-              name="assemblyPartSerialCode"
+              name="wardVoterSerialNo"
               required
-              placeholder="e.g. 116 - 34 - 452 (Constituency - Booth - Serial)"
-              value={formData.assemblyPartSerialCode}
+              placeholder="e.g. 1"
+              value={formData.wardVoterSerialNo}
               onChange={handleChange}
               className="form-input"
             />

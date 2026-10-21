@@ -19,7 +19,8 @@ import {
   Edit,
   Database,
   Building2,
-  FileText
+  FileText,
+  User
 } from 'lucide-react';
 
 export const SuperAdminView = () => {
@@ -133,7 +134,7 @@ export const SuperAdminView = () => {
         body: JSON.stringify(newUserData),
       });
       const data = await res.json();
-      if (!res.ok || !data.success) throw new Error(data.message || 'Failed to create officer account');
+      if (!res.ok || !data.success) throw new Error(data.message || 'Failed to create user account');
 
       setShowAddUserModal(false);
       setNewUserData({ fullName: '', email: '', password: '', role: 'ADMIN', assignedConstituency: '116 - Guntur West' });
@@ -183,15 +184,15 @@ export const SuperAdminView = () => {
       <div style={{ marginBottom: '22px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', marginBottom: '20px' }}>
           <div>
-            <div style={{ fontSize: '13px', fontWeight: 700, color: '#ff9933' }}>
-              Office of the Chief Electoral Officer (CEO Headquarters)
+            <div style={{ fontSize: '13px', fontWeight: 700, color: '#1a56db' }}>
+              System Administration
             </div>
             <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0a1e3f', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Building2 size={26} color="#1a56db" />
-              Chief Electoral Officer Oversight Portal
+              Super Admin Management Portal
             </h1>
             <p className="telugu-text" style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }}>
-              రాష్ట్ర ఎన్నికల ప్రధానాధికారి కార్యాలయం • అధికారులు, లైవ్ IP ఆడిట్ రికార్డులు & మాస్టర్ ఓటరు జాబితా పర్యవేక్షణ.
+              అడ్మిన్ పోర్టల్ • యూజర్లు, ఆడిట్ లాగ్‌లు & మాస్టర్ ఓటరు జాబితా నిర్వహణ.
             </p>
           </div>
 
@@ -200,7 +201,7 @@ export const SuperAdminView = () => {
               <RefreshCw size={13} /> Refresh Data / రీఫ్రెష్
             </button>
             <button onClick={() => setShowAddUserModal(true)} className="btn btn-primary btn-sm">
-              <UserPlus size={14} /> + Add Officer (కొత్త అధికారి నమోదు)
+              <UserPlus size={14} /> + Add User (కొత్త యూజర్ నమోదు)
             </button>
           </div>
         </div>
@@ -208,21 +209,21 @@ export const SuperAdminView = () => {
         {/* Official Overview Cards */}
         <div className="gov-stats-grid">
           <div className="card" style={{ padding: '16px 20px', borderLeft: '4px solid #1a56db' }}>
-            <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b' }}>ELECTORAL OFFICERS (అధికారులు)</div>
-            <div style={{ fontSize: '24px', fontWeight: 800, marginTop: '4px', color: '#0a1e3f' }}>{usersList.length} Active Officers</div>
+            <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b' }}>SYSTEM USERS (సిస్టమ్ యూజర్లు)</div>
+            <div style={{ fontSize: '24px', fontWeight: 800, marginTop: '4px', color: '#0a1e3f' }}>{usersList.length} Active Accounts</div>
             <div style={{ fontSize: '12px', color: '#1a56db', marginTop: '2px' }}>
-              {usersList.filter(u => u.role === 'ADMIN').length} Registration Officers (ERO) • {usersList.filter(u => u.role === 'VIEWER').length} Viewers
+              {usersList.filter(u => u.role === 'ADMIN').length} Admins • {usersList.filter(u => u.role === 'VIEWER').length} Viewers
             </div>
           </div>
 
           <div className="card" style={{ padding: '16px 20px', borderLeft: '4px solid #ff9933' }}>
             <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b' }}>REGISTERED VOTERS (ఓటర్ల జాబితా)</div>
             <div style={{ fontSize: '24px', fontWeight: 800, marginTop: '4px', color: '#0a1e3f' }}>{voters.length}+ Voters</div>
-            <div style={{ fontSize: '12px', color: '#ea580c', marginTop: '2px' }}>Master State Electoral Records</div>
+            <div style={{ fontSize: '12px', color: '#2563eb', marginTop: '2px' }}>Master Voter Records (మొత్తం ఓటర్ల జాబితా)</div>
           </div>
 
           <div className="card" style={{ padding: '16px 20px', borderLeft: '4px solid #138808' }}>
-            <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b' }}>AUDITED ACTIONS (చట్టబద్ధ చర్యలు)</div>
+            <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748b' }}>AUDITED ACTIONS (ఆడిట్ లాగ్ రికార్డులు)</div>
             <div style={{ fontSize: '24px', fontWeight: 800, marginTop: '4px', color: '#0a1e3f' }}>{analytics?.totalActions || logs.length} Audited Logs</div>
             <div style={{ fontSize: '12px', color: '#15803d', marginTop: '2px' }}>
               ⚡ {analytics?.actionsLast24h || logs.length} actions in the last 24h (గత 24 గంటల్లో)
@@ -254,7 +255,7 @@ export const SuperAdminView = () => {
             fontSize: '13.5px'
           }}
         >
-          <Activity size={15} /> Officer Telemetry & Audit Logs ({logs.length})
+          <Activity size={15} /> Activity & Audit Logs ({logs.length})
         </button>
 
         <button
@@ -270,7 +271,7 @@ export const SuperAdminView = () => {
             fontSize: '13.5px'
           }}
         >
-          <Users size={15} /> Electoral Officers ({usersList.length})
+          <Users size={15} /> System Users ({usersList.length})
         </button>
 
         <button
@@ -286,7 +287,7 @@ export const SuperAdminView = () => {
             fontSize: '13.5px'
           }}
         >
-          <Database size={15} /> Master Electoral Roll ({voters.length})
+          <Database size={15} /> Master Voter List ({voters.length})
         </button>
       </div>
 
@@ -298,7 +299,7 @@ export const SuperAdminView = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: '#64748b', marginBottom: '4px' }}>
-                  OFFICER ROLE (అధికారి హోదా)
+                  USER ROLE (హోదా)
                 </label>
                 <select
                   value={auditFilter.role}
@@ -306,9 +307,9 @@ export const SuperAdminView = () => {
                   className="form-select"
                 >
                   <option value="ALL">All Roles (అన్ని హోదాలు)</option>
-                  <option value="SUPER_ADMIN">Chief Electoral Officer (CEO - ప్రధాన అధికారి)</option>
-                  <option value="ADMIN">Electoral Registration Officer (ERO - నమోదు అధికారి)</option>
-                  <option value="VIEWER">Public Viewer (పరిశీలకుడు)</option>
+                  <option value="SUPER_ADMIN">Super Admin (ముఖ్య నిర్వాహకుడు)</option>
+                  <option value="ADMIN">Admin (అడ్మిన్)</option>
+                  <option value="VIEWER">Viewer (పరిశీలకుడు)</option>
                 </select>
               </div>
 
@@ -322,13 +323,13 @@ export const SuperAdminView = () => {
                   className="form-select"
                 >
                   <option value="ALL">All Event Types (అన్ని చర్యలు)</option>
-                  <option value="LOGIN">Officer Login (లాగిన్)</option>
+                  <option value="LOGIN">User Login (లాగిన్)</option>
                   <option value="VOTER_ADD">Voter Enrollment (ఓటరు నమోదు)</option>
                   <option value="VOTER_UPDATE">Voter Revision (సవరణ)</option>
                   <option value="VOTER_DELETE">Voter Deletion (తొలగింపు)</option>
-                  <option value="USER_CREATE">Officer Account Created (ఖాతా సృష్టి)</option>
-                  <option value="USER_STATUS_CHANGE">Officer Status Change (స్థితి మార్పు)</option>
-                  <option value="VOTER_SEARCH">Roll Searches (జాబితా శోధన)</option>
+                  <option value="USER_CREATE">User Account Created (ఖాతా సృష్టి)</option>
+                  <option value="USER_STATUS_CHANGE">User Status Change (స్థితి మార్పు)</option>
+                  <option value="VOTER_SEARCH">Voter Searches (జాబితా శోధన)</option>
                 </select>
               </div>
 
@@ -362,10 +363,10 @@ export const SuperAdminView = () => {
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0a1e3f' }}>
-              Authorized Electoral Officers Directory (అధీకృత ఎన్నికల అధికారులు)
+              Users Directory (సిస్టమ్ యూజర్లు)
             </h3>
             <button onClick={() => setShowAddUserModal(true)} className="btn btn-primary btn-sm">
-              <UserPlus size={14} /> + Add Officer (కొత్త అధికారి నమోదు)
+              <UserPlus size={14} /> + Add User (కొత్త యూజర్ నమోదు)
             </button>
           </div>
 
@@ -373,9 +374,9 @@ export const SuperAdminView = () => {
             <table>
               <thead>
                 <tr>
-                  <th>OFFICER NAME (అధికారి పేరు)</th>
-                  <th>OFFICIAL EMAIL (ఈమెయిల్)</th>
-                  <th>DESIGNATION (హోదా)</th>
+                  <th>NAME (పేరు)</th>
+                  <th>EMAIL (ఈమెయిల్)</th>
+                  <th>ROLE (హోదా)</th>
                   <th>STATUS (స్థితి)</th>
                   <th>ASSIGNED CONSTITUENCY (నియోజకవర్గం)</th>
                   <th>LAST LOGIN IP (చివరి IP)</th>
@@ -390,7 +391,7 @@ export const SuperAdminView = () => {
                     <td style={{ color: '#64748b' }}>{u.email}</td>
                     <td>
                       <span className={`badge ${u.role === 'SUPER_ADMIN' ? 'badge-super' : u.role === 'ADMIN' ? 'badge-admin' : 'badge-viewer'}`}>
-                        {u.role === 'SUPER_ADMIN' ? 'ప్రధాన అధికారి (CEO)' : u.role === 'ADMIN' ? 'నమోదు అధికారి (ERO)' : 'పరిశీలకుడు (Viewer)'}
+                        {u.role === 'SUPER_ADMIN' ? 'ముఖ్య నిర్వాహకుడు (Super Admin)' : u.role === 'ADMIN' ? 'అడ్మిన్ (Admin)' : 'పరిశీలకుడు (Viewer)'}
                       </span>
                     </td>
                     <td>
@@ -398,7 +399,7 @@ export const SuperAdminView = () => {
                         {u.status === 'ACTIVE' ? 'క్రియాశీల (Active)' : 'నిలిపివేసిన (Suspended)'}
                       </span>
                     </td>
-                    <td style={{ fontSize: '12.5px' }}>{u.assignedConstituency || 'రాష్ట్ర వ్యాప్తంగా (Statewide)'}</td>
+                    <td style={{ fontSize: '12.5px' }}>{u.assignedConstituency || 'మొత్తం (All)'}</td>
                     <td>
                       {u.lastLoginIp ? (
                         <div>
@@ -508,7 +509,7 @@ export const SuperAdminView = () => {
                     <th>సంబంధీకుడు</th>
                     <th>వయస్సు / లింగము</th>
                     <th>ఇంటి సంఖ్య</th>
-                    <th>పోలింగ్ బూత్ వివరాలు</th>
+                    <th>వార్డు (WARD)</th>
                     <th>స్థితి</th>
                     <th>చర్యలు</th>
                   </tr>
@@ -524,7 +525,54 @@ export const SuperAdminView = () => {
                       <td>{v.relativeName}</td>
                       <td>{v.age} సం. / {v.gender === 'MALE' ? 'పు' : v.gender === 'FEMALE' ? 'స్త్రీ' : 'ఇతర'}</td>
                       <td><strong>{v.houseNumber}</strong></td>
-                      <td style={{ fontSize: '12px' }}>{v.assemblyPartSerialCode}</td>
+                      {/* Photo & Ward */}
+                      <td style={{ fontSize: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {v.photoUrl ? (
+                            <img
+                              src={v.photoUrl}
+                              alt={v.fullName}
+                              style={{
+                                width: '36px',
+                                height: '44px',
+                                objectFit: 'cover',
+                                borderRadius: '4px',
+                                border: '1px solid #cbd5e1',
+                                backgroundColor: '#f1f5f9',
+                                flexShrink: 0
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div
+                            style={{
+                              width: '36px',
+                              height: '44px',
+                              borderRadius: '4px',
+                              background: '#e2e8f0',
+                              display: v.photoUrl ? 'none' : 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#64748b',
+                              fontSize: '9px',
+                              border: '1px solid #cbd5e1',
+                              flexShrink: 0
+                            }}
+                          >
+                            <User size={14} color="#94a3b8" />
+                            <span style={{ fontSize: '8px' }}>ఫోటో</span>
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: 800, color: '#0a1e3f' }}>
+                              వార్డు {v.electionLocation?.wardNo || '24'}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
                       <td>
                         <span className={`badge ${v.status === 'ACTIVE' ? 'badge-active' : 'badge-suspended'}`}>{v.status}</span>
                       </td>
@@ -616,9 +664,9 @@ export const SuperAdminView = () => {
       {showAddUserModal && (
         <div className="modal-overlay">
           <div className="modal-body" style={{ maxWidth: '480px' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '4px', color: '#0a1e3f' }}>కొత్త ఎన్నికల అధికారి ఖాతా సృష్టి</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '4px', color: '#0a1e3f' }}>కొత్త యూజర్ ఖాతా సృష్టి</h3>
             <p style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '16px' }}>
-              ఎన్నికల నమోదు అధికారి (ERO) లేదా పరిశీలకుడికి (Viewer) అధీకృత యాక్సెస్ అందించండి.
+              అడ్మిన్ (Admin) లేదా పరిశీలకుడికి (Viewer) యాక్సెస్ అందించండి.
             </p>
 
             {userError && (
@@ -629,11 +677,11 @@ export const SuperAdminView = () => {
 
             <form onSubmit={handleCreateUser}>
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>అధికారి పూర్తి పేరు *</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>పూర్తి పేరు *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. శ్రీ కే. వి. రావు"
+                  placeholder="e.g. రమేష్ రావు"
                   value={newUserData.fullName}
                   onChange={(e) => setNewUserData({ ...newUserData, fullName: e.target.value })}
                   className="form-input"
@@ -641,11 +689,11 @@ export const SuperAdminView = () => {
               </div>
 
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>అధికారిక ఈమెయిల్ ఐడి *</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>ఈమెయిల్ ఐడి *</label>
                 <input
                   type="email"
                   required
-                  placeholder="officer@election.gov"
+                  placeholder="user@election.com"
                   value={newUserData.email}
                   onChange={(e) => setNewUserData({ ...newUserData, email: e.target.value })}
                   className="form-input"
@@ -665,14 +713,14 @@ export const SuperAdminView = () => {
               </div>
 
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>అధికారిక హోదా / Role *</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>హోదా / Role *</label>
                 <select
                   value={newUserData.role}
                   onChange={(e) => setNewUserData({ ...newUserData, role: e.target.value })}
                   className="form-select"
                 >
-                  <option value="ADMIN">ఎన్నికల నమోదు అధికారి (ERO - Add & Edit Voters)</option>
-                  <option value="VIEWER">పౌర పరిశీలకుడు (Viewer - Search & View Only)</option>
+                  <option value="ADMIN">అడ్మిన్ (Admin - Add & Edit Voters)</option>
+                  <option value="VIEWER">పరిశీలకుడు (Viewer - Search & View Only)</option>
                 </select>
               </div>
 

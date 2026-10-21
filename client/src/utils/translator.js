@@ -50,19 +50,15 @@ export const transliterateToTelugu = async (englishText) => {
  */
 export const labels = {
   portalTitle: {
-    en: 'National Electoral Services Portal',
-    te: 'జాతీయ ఓటరు సేవా పోర్టల్',
+    en: 'Ward Voter Search Portal',
+    te: 'వార్డు ఓటర్ల శోధన పోర్టల్',
   },
   govSubtitle: {
-    en: 'Government of India • State Election Commission',
-    te: 'భారత ప్రభుత్వం • రాష్ట్ర ఎన్నికల సంఘం',
-  },
-  helpline: {
-    en: 'Voter Helpline: 1950 (Toll-Free)',
-    te: 'ఓటరు హెల్ప్‌లైన్: 1950',
+    en: 'Ward Voter Directory & Search Access',
+    te: 'వార్డు ఓటర్ల జాబితా శోధన',
   },
   searchHeading: {
-    en: 'Search Your Details in the Electoral Roll',
+    en: 'Search Voter Details in the Roll',
     te: 'ఓటరు జాబితాలో మీ వివరాలు వెతకండి',
   },
   searchPlaceholder: {
@@ -74,7 +70,25 @@ export const labels = {
     te: 'శోధించండి',
   },
   printSlip: {
-    en: 'Print Official Voter Slip',
-    te: 'అధికారిక ఓటరు పత్రం',
+    en: 'Print Voter Slip',
+    te: 'ఓటరు పత్రం',
   },
+};
+
+/**
+ * Masks a voter card / EPIC number for viewer privacy
+ * Example: "XBC0705111" -> "XBC0X0X1X1"
+ */
+export const maskVoterId = (id) => {
+  if (!id) return '';
+  const str = id.toString().trim();
+  return str
+    .split('')
+    .map((char, index) => {
+      if (index >= 4 && (index - 4) % 2 === 0) {
+        return 'X';
+      }
+      return char;
+    })
+    .join('');
 };

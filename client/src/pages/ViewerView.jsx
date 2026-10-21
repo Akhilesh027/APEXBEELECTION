@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { VoterSlip } from '../components/VoterSlip';
+import { maskVoterId } from '../utils/translator';
 import {
   Search,
   Filter,
@@ -13,7 +14,8 @@ import {
   CheckCircle,
   PhoneCall,
   MapPin,
-  Calendar
+  Calendar,
+  User
 } from 'lucide-react';
 
 export const ViewerView = () => {
@@ -25,7 +27,7 @@ export const ViewerView = () => {
   // Filters
   const [search, setSearch] = useState('');
   const [selectedGender, setSelectedGender] = useState('ALL');
-  const [selectedBooth, setSelectedBooth] = useState('ALL');
+  const [selectedWard, setSelectedWard] = useState('ALL');
   const [selectedAgeBracket, setSelectedAgeBracket] = useState('ALL');
   const [houseFilter, setHouseFilter] = useState('');
   const [selectedSlipVoter, setSelectedSlipVoter] = useState(null);
@@ -39,7 +41,7 @@ export const ViewerView = () => {
       const query = new URLSearchParams();
       if (search) query.append('search', search);
       if (selectedGender !== 'ALL') query.append('gender', selectedGender);
-      if (selectedBooth !== 'ALL') query.append('partOrBoothNo', selectedBooth);
+      if (selectedWard !== 'ALL') query.append('wardNo', selectedWard);
       if (houseFilter) query.append('houseNumber', houseFilter);
 
       if (selectedAgeBracket === '18-25') {
@@ -83,7 +85,7 @@ export const ViewerView = () => {
   const handleClearFilters = () => {
     setSearch('');
     setSelectedGender('ALL');
-    setSelectedBooth('ALL');
+    setSelectedWard('ALL');
     setSelectedAgeBracket('ALL');
     setHouseFilter('');
     fetchVoters();
@@ -94,17 +96,17 @@ export const ViewerView = () => {
       {/* Citizen Hero Search Banner (English Default First, Telugu Secondary) */}
       <div className="hero-search-card">
         <div style={{ maxWidth: '820px', position: 'relative', zIndex: 1 }}>
-          <div style={{ fontSize: '13px', fontWeight: 700, color: '#ff9933', marginBottom: '4px' }}>
-            Election Commission of India • National Voter Services Portal
+          <div style={{ fontSize: '13px', fontWeight: 700, color: '#38bdf8', marginBottom: '4px' }}>
+            Ward Voter Search Portal • వార్డు ఓటర్ల శోధన పోర్టల్
           </div>
           <h1 style={{ fontSize: '26px', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: '1.25' }}>
-            Search Your Details in the Electoral Roll
+            Ward Voter Search Portal
           </h1>
           <div className="telugu-text" style={{ fontSize: '15px', color: '#fef08a', marginTop: '4px', fontWeight: 600 }}>
-            ఓటరు జాబితాలో మీ వివరాలు వెతకండి మరియు అధికారిక స్లిప్ డౌన్‌లోడ్ చేసుకోండి
+            వార్డు ఓటర్ల జాబితాలో వివరాలు వెతకండి మరియు ఓటరు స్లిప్ డౌన్‌లోడ్ చేసుకోండి
           </div>
           <p style={{ fontSize: '13px', color: '#cbd5e1', marginTop: '6px', marginBottom: '20px' }}>
-            Search by EPIC Number, Voter Name, or House Number. Download your Official Voter Information Slip.
+            Search by EPIC Number, Voter Name, or House Number. Download your Voter Information Slip.
           </p>
 
           {/* Prominent Citizen Search Bar */}
@@ -174,15 +176,19 @@ export const ViewerView = () => {
       {/* Citizen Filter Controls */}
       <div className="card" style={{ padding: '16px 20px', marginBottom: '22px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', alignItems: 'flex-end' }}>
-          {/* Polling Booth */}
+          {/* Ward Filter */}
           <div>
             <label style={{ display: 'block', fontSize: '11.5px', fontWeight: 700, color: '#475569', marginBottom: '5px' }}>
-              POLLING BOOTH (పోలింగ్ కేంద్రం)
+              WARD (వార్డు)
             </label>
-            <select value={selectedBooth} onChange={(e) => setSelectedBooth(e.target.value)} className="form-select">
-              <option value="ALL">All Polling Booths (అన్ని పోలింగ్ కేంద్రాలు)</option>
-              <option value="34">Booth 34 - M.P.P. Elementary School (బూత్ 34)</option>
-              <option value="35">Booth 35 - Z.P. High School (బూత్ 35)</option>
+            <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)} className="form-select">
+              <option value="ALL">All Wards (అన్ని వార్డులు)</option>
+              <option value="24">Ward 24 (వార్డు 24)</option>
+              <option value="1">Ward 1 (వార్డు 1)</option>
+              <option value="2">Ward 2 (వార్డు 2)</option>
+              <option value="3">Ward 3 (వార్డు 3)</option>
+              <option value="4">Ward 4 (వార్డు 4)</option>
+              <option value="5">Ward 5 (వార్డు 5)</option>
             </select>
           </div>
 
@@ -229,7 +235,7 @@ export const ViewerView = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
         <div>
           <div style={{ fontSize: '16px', fontWeight: 800, color: '#0a1e3f' }}>
-            Electoral Roll Entries (ఓటరు జాబితా వివరాలు)
+            Voter List Entries (ఓటరు జాబితా వివరాలు)
           </div>
           <div style={{ fontSize: '12.5px', color: '#64748b' }}>
             Total Registered Voters: <strong>{totalCount}</strong> (నమోదైన ఓటర్లు)
@@ -280,15 +286,15 @@ export const ViewerView = () => {
                 <th>RELATIVE NAME (సంబంధీకుడు)</th>
                 <th>AGE & GENDER (వయస్సు / లింగము)</th>
                 <th>HOUSE NO. (ఇంటి సంఖ్య)</th>
-                <th>POLLING BOOTH (పోలింగ్ కేంద్రం)</th>
-                <th>OFFICIAL SLIP (ఓటరు పత్రం)</th>
+                <th>WARD (వార్డు)</th>
+                <th>VOTER SLIP (ఓటరు పత్రం)</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
                   <td colSpan="7" style={{ textAlign: 'center', padding: '36px', color: '#64748b' }}>
-                    Retrieving Electoral Roll entries... (ఓటరు జాబితా పరిశీలిస్తోంది)
+                    Retrieving voter entries... (ఓటరు జాబితా పరిశీలిస్తోంది)
                   </td>
                 </tr>
               ) : voters.length === 0 ? (
@@ -303,7 +309,7 @@ export const ViewerView = () => {
                     {/* EPIC Number */}
                     <td>
                       <div style={{ fontWeight: 800, fontFamily: 'monospace', color: '#1a56db', fontSize: '13.5px' }}>
-                        {v.voterIdNumber}
+                        {maskVoterId(v.voterIdNumber)}
                       </div>
                     </td>
 
@@ -343,10 +349,53 @@ export const ViewerView = () => {
                       </button>
                     </td>
 
-                    {/* Booth & Ward */}
+                    {/* Photo & Ward */}
                     <td style={{ fontSize: '12px' }}>
-                      <div style={{ fontWeight: 600 }}>వార్డు: {v.wardVoterSerialNo}</div>
-                      <div style={{ color: '#64748b' }}>{v.assemblyPartSerialCode}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {v.photoUrl ? (
+                          <img
+                            src={v.photoUrl}
+                            alt={v.fullName}
+                            style={{
+                              width: '40px',
+                              height: '48px',
+                              objectFit: 'cover',
+                              borderRadius: '6px',
+                              border: '1.5px solid #cbd5e1',
+                              backgroundColor: '#f1f5f9',
+                              flexShrink: 0
+                            }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          style={{
+                            width: '40px',
+                            height: '48px',
+                            borderRadius: '6px',
+                            background: '#e2e8f0',
+                            display: v.photoUrl ? 'none' : 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#64748b',
+                            fontSize: '10px',
+                            border: '1px solid #cbd5e1',
+                            flexShrink: 0
+                          }}
+                        >
+                          <User size={16} color="#94a3b8" />
+                          <span style={{ fontSize: '9px', marginTop: '1px' }}>ఫోటో</span>
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 800, color: '#0a1e3f', fontSize: '13px' }}>
+                            వార్డు {v.electionLocation?.wardNo || '24'}
+                          </div>
+                        </div>
+                      </div>
                     </td>
 
                     {/* Voter Slip Button */}
@@ -375,7 +424,7 @@ export const ViewerView = () => {
                 <div>
                   <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 700 }}>EPIC NO.</div>
                   <div style={{ fontSize: '15px', fontWeight: 800, fontFamily: 'monospace', color: '#1a56db' }}>
-                    {v.voterIdNumber}
+                    {maskVoterId(v.voterIdNumber)}
                   </div>
                 </div>
                 <span className={`badge ${v.gender === 'MALE' ? 'badge-admin' : 'badge-super'}`}>
@@ -404,7 +453,7 @@ export const ViewerView = () => {
               </div>
 
               <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
-                ఇంటి సంఖ్య: <button onClick={() => handleHouseClick(v.houseNumber)} style={{ border: 'none', background: '#eff6ff', color: '#1a56db', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', cursor: 'pointer' }}>{v.houseNumber}</button> • బూత్: {v.assemblyPartSerialCode}
+                ఇంటి సంఖ్య: <button onClick={() => handleHouseClick(v.houseNumber)} style={{ border: 'none', background: '#eff6ff', color: '#1a56db', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', cursor: 'pointer' }}>{v.houseNumber}</button> • వార్డు: {v.electionLocation?.wardNo || '24'}
               </div>
 
               <button
@@ -412,17 +461,18 @@ export const ViewerView = () => {
                 className="btn btn-primary btn-sm"
                 style={{ width: '100%', padding: '8px' }}
               >
-                <Printer size={13} /> అధికారిక ఓటరు పత్రం (Print Voter Slip)
+                <Printer size={13} /> ఓటరు పత్రం (Print Voter Slip)
               </button>
             </div>
           ))}
         </div>
       )}
 
-      {/* Official Voter Slip Modal */}
+      {/* Voter Slip Modal */}
       {selectedSlipVoter && (
         <VoterSlip
           voter={selectedSlipVoter}
+          maskId={true}
           onClose={() => setSelectedSlipVoter(null)}
         />
       )}
