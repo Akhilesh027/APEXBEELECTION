@@ -61,7 +61,7 @@ export const AdminView = () => {
 
   useEffect(() => {
     fetchVoters();
-  }, [selectedBooth, selectedGender]);
+  }, [selectedWard, selectedGender]);
 
   // Bulk Import Handler
   const handleBulkSubmit = async (e) => {
@@ -179,7 +179,7 @@ export const AdminView = () => {
             <button onClick={fetchVoters} className="btn btn-primary" style={{ flex: 1 }}>
               <Search size={14} /> Search Roll / శోధించండి
             </button>
-            <button onClick={() => { setSearch(''); setSelectedBooth('ALL'); setSelectedGender('ALL'); fetchVoters(); }} className="btn btn-secondary" title="Reset Filters (రీసెట్)">
+            <button onClick={() => { setSearch(''); setSelectedWard('ALL'); setSelectedGender('ALL'); fetchVoters(); }} className="btn btn-secondary" title="Reset Filters (రీసెట్)">
               <RefreshCw size={14} />
             </button>
           </div>

@@ -76,7 +76,7 @@ export const ViewerView = () => {
 
   useEffect(() => {
     fetchVoters();
-  }, [selectedGender, selectedBooth, selectedAgeBracket, houseFilter]);
+  }, [selectedGender, selectedWard, selectedAgeBracket, houseFilter]);
 
   const handleHouseClick = (doorNo) => {
     setHouseFilter(doorNo);

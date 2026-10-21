@@ -45,14 +45,26 @@ export function App() {
     return <LoginPage />;
   }
 
+  const role = user?.role?.toUpperCase();
+
   return (
     <div className="app-container">
       <Navbar />
 
       {/* Render Role-Specific Portal View */}
-      {user.role === 'SUPER_ADMIN' && <SuperAdminView />}
-      {user.role === 'ADMIN' && <AdminView />}
-      {user.role === 'VIEWER' && <ViewerView />}
+      {role === 'SUPER_ADMIN' && <SuperAdminView />}
+      {role === 'ADMIN' && <AdminView />}
+      {role === 'VIEWER' && <ViewerView />}
+      {!['SUPER_ADMIN', 'ADMIN', 'VIEWER'].includes(role) && (
+        <div style={{ padding: '60px 20px', textAlign: 'center', color: '#64748b' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0a1e3f', marginBottom: '8px' }}>
+            Unrecognized User Role ({user?.role || 'None'})
+          </h3>
+          <p style={{ fontSize: '14px' }}>
+            Please contact the Super Administrator to configure portal access for your account.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
