@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Lock, Mail, AlertCircle, ArrowRight, Building2, PhoneCall } from 'lucide-react';
+import { Lock, Mail, AlertCircle, ArrowRight, Building2, PhoneCall } from 'lucide-react';
 
 export const LoginPage = () => {
   const { login } = useAuth();
@@ -23,20 +23,6 @@ export const LoginPage = () => {
     }
   };
 
-  const handleQuickLogin = async (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-    setError('');
-    setLoading(true);
-
-    try {
-      await login(demoEmail, demoPassword);
-    } catch (err) {
-      setError(err.message || 'Authentication failed');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div style={{
@@ -174,27 +160,13 @@ export const LoginPage = () => {
             </button>
           </form>
 
-          {/* Super Admin 1-Click Access */}
+          {/* Security Notice */}
           <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '8px', textAlign: 'center' }}>
-              అధికారిక లాగిన్ ప్రవేశం (Officer Quick Access)
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('superadmin@election.gov', 'Password@123')}
-              className="btn btn-secondary btn-sm"
-              style={{ width: '100%', justifyContent: 'space-between', padding: '10px 14px', border: '1.5px solid #cbd5e1', background: '#f8fafc' }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Shield size={16} color="#0a1e3f" />
-                <span style={{ fontWeight: 700, color: '#0a1e3f' }}>Chief Electoral Officer (Super Admin)</span>
+            <div style={{ fontSize: '11.5px', color: '#64748b', textAlign: 'center', lineHeight: '1.5' }}>
+              🔒 <strong>Official Security Notice:</strong> All login attempts, sessions, and client IP addresses are monitored and audited under election security protocol.
+              <div className="telugu-text" style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
+                అధికారిక రక్షణ సూచన: ఈ వ్యవస్థ ద్వారా జరిగే ప్రతి చర్య మరియు IP చిరునామా చట్టబద్ధంగా రికార్డు చేయబడుతుంది.
               </div>
-              <span style={{ fontSize: '12px', color: '#1a56db', fontWeight: 700 }}>Auto-fill →</span>
-            </button>
-
-            <div style={{ marginTop: '14px', fontSize: '11.5px', color: '#64748b', textAlign: 'center', lineHeight: '1.5' }}>
-              🔒 <strong>అధికారిక రక్షణ సూచన:</strong> ఈ వ్యవస్థ ద్వారా జరిగే ప్రతి చర్య మరియు IP చిరునామా చట్టబద్ధంగా రికార్డు చేయబడుతుంది.
             </div>
           </div>
         </div>

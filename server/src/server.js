@@ -16,10 +16,23 @@ const app = express();
 // Trust reverse proxy for accurate IP address extraction
 app.set('trust proxy', 1);
 
-// Enable CORS
+// Enable CORS for production and development
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, mobile, server-to-server)
+      if (!origin) return callback(null, true);
+      const clientUrl = process.env.CLIENT_URL;
+      if (!clientUrl || clientUrl === '*') return callback(null, true);
+      if (
+        origin === clientUrl ||
+        origin.includes('apexbee.in') ||
+        origin.includes('localhost')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
